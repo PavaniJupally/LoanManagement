@@ -1,13 +1,10 @@
 package com.loanModule.loanModule.Entity;
 
-import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity // Marks this class as a JPA Entity
 @Table(name = "customer") // Maps the class to the "customer" table in the database
@@ -36,67 +33,28 @@ public class Customer {
     @Column(name = "authority_id")
     private Long authorityId;
     
-    @Column(name = "credit_score")
-    private Long creditScore;
-    
-    @Column(name = "total_debt")
-    private Double totalDebt;
-            
-    @Column(name = "employment_status")
-    private String employmentStatus;
-    
-    @Column(name = "loan_status")
-    private String loanStatus;
 
-    @Column(name = "account_creation_date", nullable = false)
-	private LocalDate accountCreationDate;
+@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<LoanDetails> loanDetails = new ArrayList<>();
 
-	// Getter and Setter for accountCreationDate
-	public LocalDate getAccountCreationDate() {
-	    return accountCreationDate;
-	}
+    public void addLoanDetail(LoanDetails loanDetail) {
+        loanDetails.add(loanDetail);
+        loanDetail.setCustomer(this);
+    }
 
-	public void setAccountCreationDate(LocalDate accountCreationDate) {
-	    this.accountCreationDate = accountCreationDate;
-	}
+    public void removeLoanDetail(LoanDetails loanDetail) {
+        loanDetails.remove(loanDetail);
+        loanDetail.setCustomer(null);
+    }
+
+    // Getter and Setter for accountCreationDate
     // Getters and Setters
     public Long getCustomerId() {
         return customerId;
     }
 
-    public Long getCreditScore() {
-		return creditScore;
-	}
 
-	public void setCreditScore(Long creditScore) {
-		this.creditScore = creditScore;
-	}
-
-	public Double getTotalDebt() {
-		return totalDebt;
-	}
-
-	public void setTotalDebt(Double totalDebt) {
-		this.totalDebt = totalDebt;
-	}
-
-	public String getEmploymentStatus() {
-		return employmentStatus;
-	}
-
-	public void setEmploymentStatus(String employmentStatus) {
-		this.employmentStatus = employmentStatus;
-	}
-
-	public String getLoanStatus() {
-		return loanStatus;
-	}
-
-	public void setLoanStatus(String loanStatus) {
-		this.loanStatus = loanStatus;
-	}
-
-	public void setCustomerId(Long customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
@@ -149,4 +107,3 @@ public class Customer {
     }
 
 }
-

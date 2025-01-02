@@ -10,20 +10,6 @@ public class CustomerDAO {
 	private String employmentStatus;
 	private LocalDate accountCreationDate;
 
-	// Default constructor
-	public CustomerDAO() {
-	}
-
-	// Constructor with parameters
-	public CustomerDAO(Long customerId, Long creditScore, Double totalDebt, String employmentStatus,
-			LocalDate accountCreationDate) {
-		this.customerId = customerId;
-		this.creditScore = creditScore;
-		this.totalDebt = totalDebt;
-		this.employmentStatus = employmentStatus;
-		this.accountCreationDate = accountCreationDate;
-	}
-
 	// Getters and Setters
 	public Long getCustomerId() {
 		return customerId;
@@ -56,7 +42,7 @@ public class CustomerDAO {
 	public void setEmploymentStatus(String employmentStatus) {
 		this.employmentStatus = employmentStatus;
 	}
-
+//
 	public LocalDate getAccountCreationDate() {
 		return accountCreationDate;
 	}

@@ -7,5 +7,6 @@ import com.loanModule.loanModule.Entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Customer getCustomerByCustomerId(Long customerId);
 
 }
