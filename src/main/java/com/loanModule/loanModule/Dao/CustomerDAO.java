@@ -2,6 +2,7 @@ package com.loanModule.loanModule.Dao;
 
 import java.time.LocalDate;
 
+
 public class CustomerDAO {
 
 	private Long customerId; // Assuming it's needed for future use
@@ -9,6 +10,7 @@ public class CustomerDAO {
 	private Double totalDebt;
 	private String employmentStatus;
 	private LocalDate accountCreationDate;
+	private boolean frontEnd;
 
 	// Getters and Setters
 	public Long getCustomerId() {
@@ -42,7 +44,7 @@ public class CustomerDAO {
 	public void setEmploymentStatus(String employmentStatus) {
 		this.employmentStatus = employmentStatus;
 	}
-//
+
 	public LocalDate getAccountCreationDate() {
 		return accountCreationDate;
 	}

@@ -40,7 +40,6 @@ public class LoanService {
 		logger.trace("Checking loan eligibility for: your at Service layer starting of function " + customerDao.getEmploymentStatus());
 
 
-
 		ResponseEligibility newResponse = new ResponseEligibility();
 		// Fetch customer data
 		Optional<Customer> customerOptional = customerRepository.findById(customerDao.getCustomerId());
@@ -81,16 +80,37 @@ public class LoanService {
 			eligible = false;
 			rejectionReasons.append("Employment status is Unemployed. ");
 		}
+		LocalDate currentDate = LocalDate.now();
 
-		// 5. Account Age Check (1 year minimum)
-		LocalDate currentDate = LocalDate.now();  // Define currentDate as the current date
+//Get account creation date, assumed to be a LocalDate object
+		LocalDate accountCreatedDate = customerDao.getAccountCreationDate();
 
-			LocalDate accountCreatedDate = customerDao.getAccountCreationDate(); // customer.getAccountCreationDate();  // Already LocalDate
+
+// Null check for accountCreatedDate
+		if (accountCreatedDate != null) {
+
 			long accountAgeInMonths = ChronoUnit.MONTHS.between(accountCreatedDate, currentDate);
 			if (accountAgeInMonths < 12) {
 				eligible = false;
 				rejectionReasons.append("Account age is less than 1 year. ");
 			}
+		}
+
+
+//		// 5. Account Age Check (1 year minimum)
+//		LocalDate currentDate = LocalDate.now();  // Define currentDate as the current date
+//		Optional<LoanDetails> loanDetailsOptional = loanDetailsRepo.findByCustomer_CustomerId(customerDao.getCustomerId());
+//		if (loanDetailsOptional.isPresent()) {
+//			LocalDate accountCreatedDate = loanDetailsOptional.get().getAccountCreationDate(); // customer.getAccountCreationDate();  // Already LocalDate
+//			long accountAgeInMonths = ChronoUnit.MONTHS.between(accountCreatedDate, currentDate);
+//			if (accountAgeInMonths < 12) {
+//				eligible = false;
+//				rejectionReasons.append("Account age is less than 1 year. ");
+//			}
+
+// 5 . 12 months back
+
+		// Prepare LoanDetails object
 		LoanDetails loanDetails = new LoanDetails();
 		loanDetails.setCustomer(customer);
 		loanDetails.setCreditScore(customerDao.getCreditScore());
@@ -116,7 +136,7 @@ public class LoanService {
 		logger.trace("Checking loan eligibility for: your at Service layer ending of function " + customerDao.getEmploymentStatus());
 
 
-
 		return newResponse;
 	}
 }
+
