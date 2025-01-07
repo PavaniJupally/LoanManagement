@@ -15,7 +15,7 @@ import com.loanModule.loanModule.Repository.CustomerRepository;
 import com.loanModule.loanModule.Service.LoanService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RequestMapping("v1/users")
 public class CutomerEligibilityContoller {
 	Logger logger = LoggerFactory.getLogger(CutomerEligibilityContoller.class);
